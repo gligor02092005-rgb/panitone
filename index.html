@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozonac & Panettone | Gourmet Edition</title>
+    <!-- Framework-uri externe -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <!-- Fișierul CSS extern -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- NAVIGATION -->
+    <nav class="flex justify-between items-center px-4 py-4 border-b border-custom sticky top-0 bg-[#e5e5df] z-40">
+        <div class="flex gap-6">
+            <span class="nav-link text-xs font-bold uppercase tracking-widest" onclick="showPage('home')">• ACASĂ</span>
+            <span class="nav-link text-xs font-bold uppercase tracking-widest" onclick="showPage('shop')">• SHOP</span>
+        </div>
+        <div class="flex gap-6 items-center">
+            <span class="nav-link text-xs font-bold uppercase tracking-widest" onclick="showPage('recipes')">REȚETE</span>
+            <span class="nav-link text-xs font-bold uppercase tracking-widest" onclick="showPage('about')">DESPRE NOI</span>
+            <div class="relative nav-link flex items-center gap-2" onclick="toggleCart(true)">
+                <span class="text-xs font-bold uppercase tracking-widest">COȘ</span>
+                <span id="cart-count" class="bg-[#0a4d2b] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CART DRAWER -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 z-50" onclick="toggleCart(false)"></div>
+    <div id="cart-drawer" class="fixed right-0 top-0 h-full w-full max-w-md bg-[#e5e5df] z-[60] shadow-2xl p-8 flex flex-col border-l border-custom">
+        <div class="flex justify-between items-center mb-8 border-b border-custom pb-4">
+            <h2 class="text-2xl font-bold uppercase tracking-tighter">Coșul Tău</h2>
+            <button onclick="toggleCart(false)" class="text-2xl">&times;</button>
+        </div>
+        
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-6 pr-2">
+            <!-- Produsele din coș vor fi injectate aici -->
+        </div>
+
+        <div class="mt-8 border-t border-custom pt-6">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-xs font-bold uppercase">Total estimat</span>
+                <span id="cart-total" class="text-xl font-bold">0 RON</span>
+            </div>
+            <button class="btn-modern w-full py-4 text-lg" onclick="checkout()">Finalizează Comanda</button>
+        </div>
+    </div>
+
+    <!-- PAGE: HOME -->
+    <section id="home" class="page-content active">
+        <header class="py-10 px-4">
+            <h1 class="hero-text text-center select-none">COZO·PAN<br>ITTONE</h1>
+        </header>
+        <div class="marquee-container mb-12">
+            <div class="marquee-content text-sm font-bold uppercase">
+                REȚETE ARTIZANALE — FERMENTAȚIE NATURALĂ — TRADIȚIE MODERNĂ — REȚETE ARTIZANALE — FERMENTAȚIE NATURALĂ — TRADIȚIE MODERNĂ — 
+            </div>
+        </div>
+        <main class="grid grid-cols-1 md:grid-cols-5 border-t border-custom">
+            <article class="wp-column p-6 flex flex-col justify-between">
+                <div><span class="text-xs opacity-60">WP01</span><h2 class="text-xl font-bold uppercase mb-2 mt-4">Cozonac cu Nucă</h2><img src="https://images.unsplash.com/photo-1579697030514-f71055c16b6a?q=80&w=800" class="product-image my-4"></div>
+                <button class="btn-modern w-full" onclick="addToCart('Cozonac Nucă', 85)">Cumpără - 85 RON</button>
+            </article>
+            <article class="wp-column p-6 flex flex-col justify-between">
+                <div><span class="text-xs opacity-60">WP02</span><h2 class="text-xl font-bold uppercase mb-2 mt-4">Panettone Clasic</h2><img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?q=80&w=800" class="product-image my-4"></div>
+                <button class="btn-modern w-full" onclick="addToCart('Panettone Clasic', 120)">Cumpără - 120 RON</button>
+            </article>
+            <article class="wp-column p-6 bg-white flex flex-col">
+                <span class="text-xs opacity-60">WP03</span><h2 class="text-xl font-bold uppercase mb-6 mt-4">Laboratorul</h2>
+                <p class="text-xs uppercase leading-relaxed opacity-70">Aici timpul stă în loc pentru ca aluatul să prindă viață.</p>
+                <div class="mt-auto pt-4"><button class="btn-modern w-full" onclick="showPage('about')">Explorează</button></div>
+            </article>
+            <article class="wp-column p-6 flex flex-col justify-between">
+                <div><span class="text-xs opacity-60">WP04</span><h2 class="text-xl font-bold uppercase mb-2 mt-4">Artă & Aluat</h2><img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=800" class="product-image my-4"></div>
+                <button class="btn-modern w-full" onclick="showPage('recipes')">Vezi Rețete</button>
+            </article>
+            <article class="wp-column p-6 border-r-0 flex flex-col justify-between">
+                <div><span class="text-xs opacity-60">WP05</span><h2 class="text-xl font-bold uppercase mb-2 mt-4">Limitat</h2><div class="bg-black text-white p-4 aspect-square flex items-center justify-center mt-4"><span class="text-[10px]">PAȘTE 2024</span></div></div>
+                <button class="btn-modern w-full mt-4" onclick="addToCart('Box Paște', 250)">Pre-comandă</button>
+            </article>
+        </main>
+    </section>
+
+    <!-- PAGE: SHOP -->
+    <section id="shop" class="page-content py-20 px-4">
+        <h2 class="hero-text mb-12">MAGAZIN</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="border border-custom p-6 bg-white">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800" class="w-full h-64 object-cover grayscale mb-4">
+                <h3 class="font-bold uppercase text-lg">Cozonac cu Mac</h3>
+                <p class="text-sm opacity-60">75 RON</p>
+                <button class="btn-modern mt-4 w-full" onclick="addToCart('Cozonac cu Mac', 75)">Adaugă în coș</button>
+            </div>
+            <div class="border border-custom p-6 bg-white">
+                <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?q=80&w=800" class="w-full h-64 object-cover grayscale mb-4">
+                <h3 class="font-bold uppercase text-lg">Panettone Ciocolată</h3>
+                <p class="text-sm opacity-60">110 RON</p>
+                <button class="btn-modern mt-4 w-full" onclick="addToCart('Panettone Ciocolată', 110)">Adaugă în coș</button>
+            </div>
+            <div class="border border-custom p-6 bg-white">
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800" class="w-full h-64 object-cover grayscale mb-4">
+                <h3 class="font-bold uppercase text-lg">Baigli cu Nucă</h3>
+                <p class="text-sm opacity-60">55 RON</p>
+                <button class="btn-modern mt-4 w-full" onclick="addToCart('Baigli cu Nucă', 55)">Adaugă în coș</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE: RECIPES -->
+    <section id="recipes" class="page-content py-20 px-4">
+        <h2 class="hero-text mb-12 text-center">ARHIVĂ REȚETE</h2>
+        <div class="max-w-6xl mx-auto space-y-16">
+            <!-- REȚETA 01 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-custom pb-16">
+                <div class="md:col-span-4">
+                    <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=800" class="w-full grayscale border border-custom" alt="Maia Naturală">
+                </div>
+                <div class="md:col-span-8 flex flex-col justify-center">
+                    <h3 class="text-4xl font-bold uppercase mb-4">01. Secretul Maialei</h3>
+                    <p class="text-sm uppercase leading-loose opacity-70 mb-6">Inima oricărui Panettone autentic. Află cum să echilibrezi aciditatea pentru un aluat perfect.</p>
+                    <button class="btn-modern self-start" onclick="viewRecipe('Maia')">Deschide Ghidul</button>
+                </div>
+            </div>
+            <!-- REȚETA 02 -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-custom pb-16">
+                <div class="md:col-span-8 flex flex-col justify-center order-2 md:order-1">
+                    <h3 class="text-4xl font-bold uppercase mb-4">02. Cozonac cu Sirop de Vanilie</h3>
+                    <p class="text-sm uppercase leading-loose opacity-70 mb-6">O reinterpretare modernă. Hidratare ridicată și infuzie de vanilie Bourbon.</p>
+                    <button class="btn-modern self-start" onclick="viewRecipe('Cozonac Sirop')">Deschide Rețeta</button>
+                </div>
+                <div class="md:col-span-4 order-1 md:order-2">
+                    <img src="https://images.unsplash.com/photo-1589367920969-ab8e0509aae2?q=80&w=800" class="w-full grayscale border border-custom">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE: ABOUT -->
+    <section id="about" class="page-content py-20 px-4 bg-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="hero-text mb-12">DESPRE NOI</h2>
+            <p class="text-sm uppercase leading-relaxed font-light max-w-2xl mx-auto">Suntem un laborator de dospire lentă unde tradiția se întâlnește cu rigoarea matematică.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="p-8 border-t border-custom flex justify-between items-end mt-auto">
+        <div class="text-[10px] uppercase opacity-60">© 2024 CozoPan Lab.</div>
+    </footer>
+
+    <!-- MODAL -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-90 z-[100] hidden items-center justify-center p-6">
+        <div class="bg-[#e5e5df] p-10 max-w-lg w-full relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 font-bold text-2xl">&times;</button>
+            <div id="modal-content" class="uppercase text-center"></div>
+        </div>
+    </div>
+
+    <!-- Fișierul JavaScript extern -->
+    <script src="script.js"></script>
+</body>
+</html>
